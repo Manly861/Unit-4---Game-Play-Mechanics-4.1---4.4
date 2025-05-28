@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody playerRb;
     private GameObject focalPoint;
-    public float speed = 5.0f;
+    public float speed = 3.0f;
     public bool hasPowerup;
     private float powerupStrength = 15.0f;
     public GameObject powerupIndicator;
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
         playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);
         powerupIndicator.transform.position = transform.position + new Vector3(0, 0.125f, 0);
     }
-
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Power"))
