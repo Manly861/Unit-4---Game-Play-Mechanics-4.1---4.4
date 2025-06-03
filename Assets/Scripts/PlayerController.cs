@@ -23,8 +23,14 @@ public class PlayerController : MonoBehaviour
         float forwardInput = Input.GetAxis("Vertical");
         playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);
         powerupIndicator.transform.position = transform.position + new Vector3(0, 0.125f, 0);
+
+        // Reset the player's position when player drop out of the ground
+        if (transform.position.y < -20)
+        {
+            ResetPlayerPosition();
+        }
     }
-    
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Power"))
@@ -51,6 +57,13 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Collied with " + collision.gameObject.name + " with powerup set to " + hasPowerup);
             enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);
         }
+    }
+    void ResetPlayerPosition()
+    {
+        transform.position = new Vector3(0, 1, -7);
+        GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+
     }
 
 }
